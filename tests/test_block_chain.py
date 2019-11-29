@@ -25,3 +25,21 @@ def test_can_add_new_blocks_to_chain(block_chain):
     block = block_chain.construct_block(0, 0, 0)
 
     assert block_chain.chain[1] == block
+
+
+def test_block_validity_true_if_2_consecutive_blocks_are_valid(block_chain):
+    prev_block = block_chain.construct_block(0, 0, 0)
+    prev_hash = prev_block.calculate_hash()
+    block = block_chain.construct_block(0, prev_hash, 0)
+
+    assert BlockChain.check_validity(block, prev_block) is True
+
+
+def test_block_validity_false_if_2_consective_blocks_are_invalid(block_chain):
+    prev_block = block_chain.construct_block(0, 0, 0)
+    prev_hash = prev_block.calculate_hash()
+    block = block_chain.construct_block(0, prev_hash, 0)
+
+    prev_block.data = 1
+
+    assert BlockChain.check_validity(block, prev_block) is False
