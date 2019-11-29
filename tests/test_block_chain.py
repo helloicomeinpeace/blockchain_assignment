@@ -43,3 +43,14 @@ def test_block_validity_false_if_2_consective_blocks_are_invalid(block_chain):
     prev_block.data = 1
 
     assert BlockChain.check_validity(block, prev_block) is False
+
+
+def test_verifying_proof_checks_hash_contains_4_leading_zeroes(block_chain):
+    assert block_chain.verifying_proof(0, 0) is False
+    assert block_chain.verifying_proof(69732, 0) is True
+
+
+def test_proof_of_work_uses_verifying_proof_and_returns_proof_no(block_chain):
+    proof_no = block_chain.proof_of_work(0)
+
+    assert proof_no == 69732

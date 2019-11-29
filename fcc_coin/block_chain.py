@@ -1,3 +1,6 @@
+import hashlib
+
+
 class BlockChain:
 
     def __init__(self, block):
@@ -32,3 +35,21 @@ class BlockChain:
                 return False
 
         return True
+
+    def proof_of_work(self, last_proof):
+        '''A simple algorithm indentifies a number Y such that hash(XY)
+            contains 4 leading zeroes
+            X is the previous Y
+            Y is the new proof
+            '''
+        proof_no = 0
+        while self.verifying_proof(proof_no, last_proof) is False:
+            proof_no += 1
+
+        return proof_no
+
+    def verifying_proof(self, proof, last_proof):
+        guess = f'{last_proof}{proof}'.encode()
+        guess_hash = hashlib.sha256(guess).hexdigest()
+
+        return guess_hash[:4] == '0000'
