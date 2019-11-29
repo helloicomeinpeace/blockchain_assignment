@@ -54,3 +54,13 @@ def test_proof_of_work_uses_verifying_proof_and_returns_proof_no(block_chain):
     proof_no = block_chain.proof_of_work(0)
 
     assert proof_no == 69732
+
+
+def test_last_block_returns_last_block_in_chain(block_chain):
+    genesis_block = block_chain.chain[0]
+
+    assert block_chain.last_block == genesis_block
+
+    next_block = block_chain.construct_block(0, 0, 0)
+
+    assert block_chain.last_block == next_block

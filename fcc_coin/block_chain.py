@@ -53,3 +53,7 @@ class BlockChain:
         guess_hash = hashlib.sha256(guess).hexdigest()
 
         return guess_hash[:4] == '0000'
+
+    @property
+    def last_block(self):
+        return self.chain[-1]
