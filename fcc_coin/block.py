@@ -3,7 +3,7 @@ import hashlib
 
 class Block:
 
-    def __init__(self, index, proof_no, prev_hash, data, timestamp):
+    def __init__(self, index, proof_no, prev_hash, data, timestamp=None):
         self.index = index
         self.proof_no = proof_no
         self.prev_hash = prev_hash
