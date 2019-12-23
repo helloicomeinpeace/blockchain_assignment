@@ -20,3 +20,12 @@ class Block:
         )
 
         return hashlib.sha256(block_of_string.encode()).hexdigest()
+
+    def __repr__(self):
+        return (
+            f'{{{self.index}}}-'
+            f'{{{self.proof_no}}}-'
+            f'{{{self.prev_hash}}}-'
+            f'{{{self.data}}}-'
+            f'{{{self.timestamp}}}'
+        )
