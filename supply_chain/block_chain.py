@@ -1,4 +1,5 @@
 import hashlib
+import datetime;
 
 
 class BlockChain:
@@ -13,7 +14,8 @@ class BlockChain:
             index=len(self.chain),
             proof_no=proof_no,
             prev_hash=prev_hash,
-            data=data
+            data=data,
+            timestamp= datetime.datetime.now()
         )
 
         self.chain.append(block)
@@ -27,11 +29,14 @@ class BlockChain:
     @staticmethod
     def check_validity(block, prev_block):
         if prev_block.index + 1 != block.index:
+            print("invalid chain 1")
             return False
         elif prev_block.calculate_hash() != block.prev_hash:
+            print("invalid chain 2")
             return False
         elif prev_block.timestamp and block.timestamp:
             if prev_block.timestamp > block.timestamp:
+                print("invalid chain 3")
                 return False
 
         return True
